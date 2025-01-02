@@ -70,6 +70,7 @@ class PostageDetailsRequest implements ModelInterface, ArrayAccess
         'safePlace' => 'string',
         'department' => 'string',
         'aIRNumber' => 'string',
+        'IOSSNumber' => 'string',
         'requiresExportLicense' => 'bool',
         'commercialInvoiceNumber' => 'string',
         'commercialInvoiceDate' => '\DateTime'
@@ -94,6 +95,7 @@ class PostageDetailsRequest implements ModelInterface, ArrayAccess
         'safePlace' => null,
         'department' => null,
         'aIRNumber' => null,
+        'IOSSNumber' => null,
         'requiresExportLicense' => null,
         'commercialInvoiceNumber' => null,
         'commercialInvoiceDate' => 'date-time'
@@ -139,6 +141,7 @@ class PostageDetailsRequest implements ModelInterface, ArrayAccess
         'safePlace' => 'safePlace',
         'department' => 'department',
         'aIRNumber' => 'AIRNumber',
+        'IOSSNumber' => 'IOSSNumber',
         'requiresExportLicense' => 'requiresExportLicense',
         'commercialInvoiceNumber' => 'commercialInvoiceNumber',
         'commercialInvoiceDate' => 'commercialInvoiceDate'
@@ -163,6 +166,7 @@ class PostageDetailsRequest implements ModelInterface, ArrayAccess
         'safePlace' => 'setSafePlace',
         'department' => 'setDepartment',
         'aIRNumber' => 'setAIRNumber',
+        'IOSSNumber' => 'setIOSSNumber',
         'requiresExportLicense' => 'setRequiresExportLicense',
         'commercialInvoiceNumber' => 'setCommercialInvoiceNumber',
         'commercialInvoiceDate' => 'setCommercialInvoiceDate'
@@ -187,6 +191,7 @@ class PostageDetailsRequest implements ModelInterface, ArrayAccess
         'safePlace' => 'getSafePlace',
         'department' => 'getDepartment',
         'aIRNumber' => 'getAIRNumber',
+        'IOSSNumber' => 'getIOSSNumber',
         'requiresExportLicense' => 'getRequiresExportLicense',
         'commercialInvoiceNumber' => 'getCommercialInvoiceNumber',
         'commercialInvoiceDate' => 'getCommercialInvoiceDate'
@@ -282,6 +287,7 @@ class PostageDetailsRequest implements ModelInterface, ArrayAccess
         $this->container['safePlace'] = isset($data['safePlace']) ? $data['safePlace'] : null;
         $this->container['department'] = isset($data['department']) ? $data['department'] : null;
         $this->container['aIRNumber'] = isset($data['aIRNumber']) ? $data['aIRNumber'] : null;
+        $this->container['IOSSNumber'] = isset($data['IOSSNumber']) ? $data['IOSSNumber'] : null;
         $this->container['requiresExportLicense'] = isset($data['requiresExportLicense']) ? $data['requiresExportLicense'] : null;
         $this->container['commercialInvoiceNumber'] = isset($data['commercialInvoiceNumber']) ? $data['commercialInvoiceNumber'] : null;
         $this->container['commercialInvoiceDate'] = isset($data['commercialInvoiceDate']) ? $data['commercialInvoiceDate'] : null;
@@ -330,6 +336,10 @@ class PostageDetailsRequest implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['aIRNumber']) && (mb_strlen($this->container['aIRNumber']) > 50)) {
             $invalidProperties[] = "invalid value for 'aIRNumber', the character length must be smaller than or equal to 50.";
+        }
+
+        if (!is_null($this->container['IOSSNumber']) && (mb_strlen($this->container['IOSSNumber']) > 50)) {
+            $invalidProperties[] = "invalid value for 'IOSSNumber', the character length must be smaller than or equal to 50.";
         }
 
         if (!is_null($this->container['commercialInvoiceNumber']) && (mb_strlen($this->container['commercialInvoiceNumber']) > 35)) {
@@ -696,6 +706,34 @@ class PostageDetailsRequest implements ModelInterface, ArrayAccess
         }
 
         $this->container['aIRNumber'] = $aIRNumber;
+
+        return $this;
+    }
+
+     /**
+     * Gets IOSSNumber
+     *
+     * @return string
+     */
+    public function getIOSSNumber()
+    {
+        return $this->container['IOSSNumber'];
+    }
+
+    /**
+     * Sets IOSSNumber
+     *
+     * @param string $IOSSNumber IOSSNumber
+     *
+     * @return $this
+     */
+    public function setIOSSNumber($IOSSNumber)
+    {
+        if (!is_null($IOSSNumber) && (mb_strlen($IOSSNumber) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $IOSSNumber when calling PostageDetailsRequest., must be smaller than or equal to 50.');
+        }
+
+        $this->container['IOSSNumber'] = $IOSSNumber;
 
         return $this;
     }

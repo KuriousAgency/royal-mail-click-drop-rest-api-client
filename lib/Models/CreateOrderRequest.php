@@ -58,6 +58,7 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'orderReference' => 'string',
+        'isRecipientABusiness' => 'bool',
         'recipient' => '\RoyalMail\ClickAndDrop\Rest\Api\Models\RecipientDetailsRequest',
         'sender' => '\RoyalMail\ClickAndDrop\Rest\Api\Models\SenderDetailsRequest',
         'billing' => '\RoyalMail\ClickAndDrop\Rest\Api\Models\BillingDetailsRequest',
@@ -82,6 +83,7 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'orderReference' => null,
+        'isRecipientABusiness' => null,
         'recipient' => null,
         'sender' => null,
         'billing' => null,
@@ -127,6 +129,7 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'orderReference' => 'orderReference',
+        'isRecipientABusiness' => 'isRecipientABusiness',
         'recipient' => 'recipient',
         'sender' => 'sender',
         'billing' => 'billing',
@@ -151,6 +154,7 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'orderReference' => 'setOrderReference',
+        'isRecipientABusiness' => 'setIsRecipientABusiness',
         'recipient' => 'setRecipient',
         'sender' => 'setSender',
         'billing' => 'setBilling',
@@ -175,6 +179,7 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'orderReference' => 'getOrderReference',
+        'isRecipientABusiness' => 'getIsRecipientABusiness',
         'recipient' => 'getRecipient',
         'sender' => 'getSender',
         'billing' => 'getBilling',
@@ -253,6 +258,7 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['orderReference'] = isset($data['orderReference']) ? $data['orderReference'] : null;
+        $this->container['isRecipientABusiness'] = isset($data['isRecipientABusiness']) ? $data['isRecipientABusiness'] : null;
         $this->container['recipient'] = isset($data['recipient']) ? $data['recipient'] : null;
         $this->container['sender'] = isset($data['sender']) ? $data['sender'] : null;
         $this->container['billing'] = isset($data['billing']) ? $data['billing'] : null;
@@ -345,6 +351,30 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
         }
 
         $this->container['orderReference'] = $orderReference;
+
+        return $this;
+    }
+
+    /**
+     * Gets isRecipientABusiness
+     *
+     * @return bool
+     */
+    public function getIsRecipientABusiness()
+    {
+        return $this->container['isRecipientABusiness'];
+    }
+
+    /**
+     * Sets isRecipientABusiness
+     *
+     * @param bool $isRecipientABusiness isRecipientABusiness
+     *
+     * @return $this
+     */
+    public function setIsRecipientABusiness($isRecipientABusiness)
+    {
+        $this->container['isRecipientABusiness'] = $isRecipientABusiness;
 
         return $this;
     }

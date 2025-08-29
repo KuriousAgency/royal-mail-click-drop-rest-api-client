@@ -69,6 +69,7 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
         'subtotal' => 'float',
         'shippingCostCharged' => 'float',
         'otherCosts' => 'float',
+        'customsDutyCosts' => 'float',
         'total' => 'float',
         'currencyCode' => 'string',
         'postageDetails' => '\RoyalMail\ClickAndDrop\Rest\Api\Models\PostageDetailsRequest',
@@ -94,6 +95,7 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
         'subtotal' => null,
         'shippingCostCharged' => null,
         'otherCosts' => null,
+        'customsDutyCosts' => null,
         'total' => null,
         'currencyCode' => null,
         'postageDetails' => null,
@@ -140,6 +142,7 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
         'subtotal' => 'subtotal',
         'shippingCostCharged' => 'shippingCostCharged',
         'otherCosts' => 'otherCosts',
+        'customsDutyCosts' => 'customsDutyCosts',
         'total' => 'total',
         'currencyCode' => 'currencyCode',
         'postageDetails' => 'postageDetails',
@@ -165,6 +168,7 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
         'subtotal' => 'setSubtotal',
         'shippingCostCharged' => 'setShippingCostCharged',
         'otherCosts' => 'setOtherCosts',
+        'customsDutyCosts' => 'setCustomsDutyCosts',
         'total' => 'setTotal',
         'currencyCode' => 'setCurrencyCode',
         'postageDetails' => 'setPostageDetails',
@@ -190,6 +194,7 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
         'subtotal' => 'getSubtotal',
         'shippingCostCharged' => 'getShippingCostCharged',
         'otherCosts' => 'getOtherCosts',
+        'customsDutyCosts' => 'getCustomsDutyCosts',
         'total' => 'getTotal',
         'currencyCode' => 'getCurrencyCode',
         'postageDetails' => 'getPostageDetails',
@@ -269,6 +274,7 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
         $this->container['subtotal'] = isset($data['subtotal']) ? $data['subtotal'] : null;
         $this->container['shippingCostCharged'] = isset($data['shippingCostCharged']) ? $data['shippingCostCharged'] : null;
         $this->container['otherCosts'] = isset($data['otherCosts']) ? $data['otherCosts'] : null;
+        $this->container['customsDutyCosts'] = isset($data['customsDutyCosts']) ? $data['customsDutyCosts'] : null;
         $this->container['total'] = isset($data['total']) ? $data['total'] : null;
         $this->container['currencyCode'] = isset($data['currencyCode']) ? $data['currencyCode'] : null;
         $this->container['postageDetails'] = isset($data['postageDetails']) ? $data['postageDetails'] : null;
@@ -619,6 +625,30 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
     public function setOtherCosts($otherCosts)
     {
         $this->container['otherCosts'] = $otherCosts;
+
+        return $this;
+    }
+
+     /**
+     * Gets customsDutyCosts
+     *
+     * @return float
+     */
+    public function getCustomsDutyCosts()
+    {
+        return $this->container['customsDutyCosts'];
+    }
+
+    /**
+     * Sets customsDutyCosts
+     *
+     * @param float $customsDutyCosts customsDutyCosts
+     *
+     * @return $this
+     */
+    public function setCustomsDutyCosts($customsDutyCosts)
+    {
+        $this->container['customsDutyCosts'] = $customsDutyCosts;
 
         return $this;
     }

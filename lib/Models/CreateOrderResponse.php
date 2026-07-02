@@ -65,7 +65,8 @@ class CreateOrderResponse implements ModelInterface, ArrayAccess
         'manifestedOn' => '\DateTime',
         'shippedOn' => '\DateTime',
         'trackingNumber' => 'string',
-        'label' => 'string'
+        'label' => 'string',
+        'labelErrors' => 'object[]'
     ];
 
     /**
@@ -82,7 +83,8 @@ class CreateOrderResponse implements ModelInterface, ArrayAccess
         'manifestedOn' => 'date-time',
         'shippedOn' => 'date-time',
         'trackingNumber' => null,
-        'label' => null
+        'label' => null,
+        'labelErrors' => null
     ];
 
     /**
@@ -120,7 +122,8 @@ class CreateOrderResponse implements ModelInterface, ArrayAccess
         'manifestedOn' => 'manifestedOn',
         'shippedOn' => 'shippedOn',
         'trackingNumber' => 'trackingNumber',
-        'label' => 'label'
+        'label' => 'label',
+        'labelErrors' => 'labelErrors'
     ];
 
     /**
@@ -137,7 +140,8 @@ class CreateOrderResponse implements ModelInterface, ArrayAccess
         'manifestedOn' => 'setManifestedOn',
         'shippedOn' => 'setShippedOn',
         'trackingNumber' => 'setTrackingNumber',
-        'label' => 'setLabel'
+        'label' => 'setLabel',
+        'labelErrors' => 'setLabelErrors'
     ];
 
     /**
@@ -154,7 +158,8 @@ class CreateOrderResponse implements ModelInterface, ArrayAccess
         'manifestedOn' => 'getManifestedOn',
         'shippedOn' => 'getShippedOn',
         'trackingNumber' => 'getTrackingNumber',
-        'label' => 'getLabel'
+        'label' => 'getLabel',
+        'labelErrors' => 'getLabelErrors'
     ];
 
     /**
@@ -226,6 +231,7 @@ class CreateOrderResponse implements ModelInterface, ArrayAccess
         $this->container['shippedOn'] = isset($data['shippedOn']) ? $data['shippedOn'] : null;
         $this->container['trackingNumber'] = isset($data['trackingNumber']) ? $data['trackingNumber'] : null;
         $this->container['label'] = isset($data['label']) ? $data['label'] : null;
+        $this->container['labelErrors'] = isset($data['labelErrors']) ? $data['labelErrors'] : null;
     }
 
     /**
@@ -470,6 +476,30 @@ class CreateOrderResponse implements ModelInterface, ArrayAccess
     public function setLabel($label)
     {
         $this->container['label'] = $label;
+
+        return $this;
+    }
+
+    /**
+     * Gets labelErrors
+     *
+     * @return object[]
+     */
+    public function getLabelErrors()
+    {
+        return $this->container['labelErrors'];
+    }
+
+    /**
+     * Sets labelErrors
+     *
+     * @param object[] $labelErrors errors explaining why a label was not generated
+     *
+     * @return $this
+     */
+    public function setLabelErrors($labelErrors)
+    {
+        $this->container['labelErrors'] = $labelErrors;
 
         return $this;
     }

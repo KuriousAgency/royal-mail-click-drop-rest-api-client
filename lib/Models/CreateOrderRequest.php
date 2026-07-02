@@ -72,6 +72,8 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
         'customsDutyCosts' => 'float',
         'total' => 'float',
         'currencyCode' => 'string',
+        'deliveryTerm' => 'string',
+        'additionalHandlingFeesPaid' => 'bool',
         'postageDetails' => '\RoyalMail\ClickAndDrop\Rest\Api\Models\PostageDetailsRequest',
         'tags' => '\RoyalMail\ClickAndDrop\Rest\Api\Models\TagRequest[]',
         'label' => '\RoyalMail\ClickAndDrop\Rest\Api\Models\LabelGenerationRequest'
@@ -98,6 +100,8 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
         'customsDutyCosts' => null,
         'total' => null,
         'currencyCode' => null,
+        'deliveryTerm' => null,
+        'additionalHandlingFeesPaid' => null,
         'postageDetails' => null,
         'tags' => null,
         'label' => null
@@ -145,6 +149,8 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
         'customsDutyCosts' => 'customsDutyCosts',
         'total' => 'total',
         'currencyCode' => 'currencyCode',
+        'deliveryTerm' => 'deliveryTerm',
+        'additionalHandlingFeesPaid' => 'additionalHandlingFeesPaid',
         'postageDetails' => 'postageDetails',
         'tags' => 'tags',
         'label' => 'label'
@@ -171,6 +177,8 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
         'customsDutyCosts' => 'setCustomsDutyCosts',
         'total' => 'setTotal',
         'currencyCode' => 'setCurrencyCode',
+        'deliveryTerm' => 'setDeliveryTerm',
+        'additionalHandlingFeesPaid' => 'setAdditionalHandlingFeesPaid',
         'postageDetails' => 'setPostageDetails',
         'tags' => 'setTags',
         'label' => 'setLabel'
@@ -197,6 +205,8 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
         'customsDutyCosts' => 'getCustomsDutyCosts',
         'total' => 'getTotal',
         'currencyCode' => 'getCurrencyCode',
+        'deliveryTerm' => 'getDeliveryTerm',
+        'additionalHandlingFeesPaid' => 'getAdditionalHandlingFeesPaid',
         'postageDetails' => 'getPostageDetails',
         'tags' => 'getTags',
         'label' => 'getLabel'
@@ -277,6 +287,8 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
         $this->container['customsDutyCosts'] = isset($data['customsDutyCosts']) ? $data['customsDutyCosts'] : null;
         $this->container['total'] = isset($data['total']) ? $data['total'] : null;
         $this->container['currencyCode'] = isset($data['currencyCode']) ? $data['currencyCode'] : null;
+        $this->container['deliveryTerm'] = isset($data['deliveryTerm']) ? $data['deliveryTerm'] : null;
+        $this->container['additionalHandlingFeesPaid'] = isset($data['additionalHandlingFeesPaid']) ? $data['additionalHandlingFeesPaid'] : null;
         $this->container['postageDetails'] = isset($data['postageDetails']) ? $data['postageDetails'] : null;
         $this->container['tags'] = isset($data['tags']) ? $data['tags'] : null;
         $this->container['label'] = isset($data['label']) ? $data['label'] : null;
@@ -701,6 +713,58 @@ class CreateOrderRequest implements ModelInterface, ArrayAccess
         }
 
         $this->container['currencyCode'] = $currencyCode;
+
+        return $this;
+    }
+
+    /**
+     * Gets deliveryTerm
+     *
+     * @return string
+     */
+    public function getDeliveryTerm()
+    {
+        return $this->container['deliveryTerm'];
+    }
+
+    /**
+     * Sets deliveryTerm
+     *
+     * @param string $deliveryTerm deliveryTerm (DDP, IOSS_DDP, IOSS_INC_DUTIES, DDU_DAP, IOSS_DDU)
+     *
+     * @return $this
+     */
+    public function setDeliveryTerm($deliveryTerm)
+    {
+        if (!is_null($deliveryTerm) && (mb_strlen($deliveryTerm) > 20)) {
+            throw new \InvalidArgumentException('invalid length for $deliveryTerm when calling CreateOrderRequest., must be smaller than or equal to 20.');
+        }
+
+        $this->container['deliveryTerm'] = $deliveryTerm;
+
+        return $this;
+    }
+
+    /**
+     * Gets additionalHandlingFeesPaid
+     *
+     * @return bool
+     */
+    public function getAdditionalHandlingFeesPaid()
+    {
+        return $this->container['additionalHandlingFeesPaid'];
+    }
+
+    /**
+     * Sets additionalHandlingFeesPaid
+     *
+     * @param bool $additionalHandlingFeesPaid whether handling fees (PDDP duties) have been paid in advance
+     *
+     * @return $this
+     */
+    public function setAdditionalHandlingFeesPaid($additionalHandlingFeesPaid)
+    {
+        $this->container['additionalHandlingFeesPaid'] = $additionalHandlingFeesPaid;
 
         return $this;
     }

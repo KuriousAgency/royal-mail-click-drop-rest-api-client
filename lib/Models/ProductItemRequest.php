@@ -216,6 +216,8 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
     const CUSTOMS_DECLARATION_CATEGORY_RETURNED_GOODS = 'returnedGoods';
     const CUSTOMS_DECLARATION_CATEGORY_SALE_OF_GOODS = 'saleOfGoods';
     const CUSTOMS_DECLARATION_CATEGORY_MIXED_CONTENT = 'mixedContent';
+    const CUSTOMS_DECLARATION_CATEGORY_COMMERCIAL_SALE_OF_GOODS = 'commercialSaleOfGoods';
+    const CUSTOMS_DECLARATION_CATEGORY_E_COMMERCE_SALE_OF_GOODS = 'eCommerceSaleOfGoods';
     
 
     
@@ -235,6 +237,8 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
             self::CUSTOMS_DECLARATION_CATEGORY_RETURNED_GOODS,
             self::CUSTOMS_DECLARATION_CATEGORY_SALE_OF_GOODS,
             self::CUSTOMS_DECLARATION_CATEGORY_MIXED_CONTENT,
+            self::CUSTOMS_DECLARATION_CATEGORY_COMMERCIAL_SALE_OF_GOODS,
+            self::CUSTOMS_DECLARATION_CATEGORY_E_COMMERCE_SALE_OF_GOODS,
         ];
     }
     

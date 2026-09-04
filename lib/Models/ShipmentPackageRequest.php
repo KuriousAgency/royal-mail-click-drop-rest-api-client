@@ -183,6 +183,7 @@ class ShipmentPackageRequest implements ModelInterface, ArrayAccess
     const PACKAGE_FORMAT_IDENTIFIER_LARGE_LETTER = 'largeLetter';
     const PACKAGE_FORMAT_IDENTIFIER_SMALL_PARCEL = 'smallParcel';
     const PACKAGE_FORMAT_IDENTIFIER_MEDIUM_PARCEL = 'mediumParcel';
+    const PACKAGE_FORMAT_IDENTIFIER_LARGE_PARCEL = 'largeParcel';
     const PACKAGE_FORMAT_IDENTIFIER_PARCEL = 'parcel';
     const PACKAGE_FORMAT_IDENTIFIER_DOCUMENTS = 'documents';
     const PACKAGE_FORMAT_IDENTIFIER_CUSTOM = 'custom';
@@ -202,6 +203,7 @@ class ShipmentPackageRequest implements ModelInterface, ArrayAccess
             self::PACKAGE_FORMAT_IDENTIFIER_LARGE_LETTER,
             self::PACKAGE_FORMAT_IDENTIFIER_SMALL_PARCEL,
             self::PACKAGE_FORMAT_IDENTIFIER_MEDIUM_PARCEL,
+            self::PACKAGE_FORMAT_IDENTIFIER_LARGE_PARCEL,
             self::PACKAGE_FORMAT_IDENTIFIER_PARCEL,
             self::PACKAGE_FORMAT_IDENTIFIER_DOCUMENTS,
             self::PACKAGE_FORMAT_IDENTIFIER_CUSTOM,

@@ -59,6 +59,8 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'name' => 'string',
         'sKU' => 'string',
+        'referenceId' => 'string',
+        'contentsPieceURL' => 'string',
         'quantity' => 'int',
         'unitValue' => 'float',
         'unitWeightInGrams' => 'float',
@@ -78,6 +80,8 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'name' => null,
         'sKU' => null,
+        'referenceId' => null,
+        'contentsPieceURL' => null,
         'quantity' => 'int32',
         'unitValue' => null,
         'unitWeightInGrams' => null,
@@ -118,6 +122,8 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'name' => 'name',
         'sKU' => 'SKU',
+        'referenceId' => 'ReferenceId',
+        'contentsPieceURL' => 'ContentsPieceURL',
         'quantity' => 'quantity',
         'unitValue' => 'unitValue',
         'unitWeightInGrams' => 'unitWeightInGrams',
@@ -137,6 +143,8 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
     protected static $setters = [
         'name' => 'setName',
         'sKU' => 'setSKU',
+        'referenceId' => 'setReferenceId',
+        'contentsPieceURL' => 'setContentsPieceURL',
         'quantity' => 'setQuantity',
         'unitValue' => 'setUnitValue',
         'unitWeightInGrams' => 'setUnitWeightInGrams',
@@ -156,6 +164,8 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
     protected static $getters = [
         'name' => 'getName',
         'sKU' => 'getSKU',
+        'referenceId' => 'getReferenceId',
+        'contentsPieceURL' => 'getContentsPieceURL',
         'quantity' => 'getQuantity',
         'unitValue' => 'getUnitValue',
         'unitWeightInGrams' => 'getUnitWeightInGrams',
@@ -260,6 +270,8 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
     {
         $this->container['name'] = isset($data['name']) ? $data['name'] : null;
         $this->container['sKU'] = isset($data['sKU']) ? $data['sKU'] : null;
+        $this->container['referenceId'] = isset($data['referenceId']) ? $data['referenceId'] : null;
+        $this->container['contentsPieceURL'] = isset($data['contentsPieceURL']) ? $data['contentsPieceURL'] : null;
         $this->container['quantity'] = isset($data['quantity']) ? $data['quantity'] : null;
         $this->container['unitValue'] = isset($data['unitValue']) ? $data['unitValue'] : null;
         $this->container['unitWeightInGrams'] = isset($data['unitWeightInGrams']) ? $data['unitWeightInGrams'] : null;
@@ -286,6 +298,14 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['sKU']) && (mb_strlen($this->container['sKU']) > 100)) {
             $invalidProperties[] = "invalid value for 'sKU', the character length must be smaller than or equal to 100.";
+        }
+
+        if (!is_null($this->container['referenceId']) && (mb_strlen($this->container['referenceId']) > 50)) {
+            $invalidProperties[] = "invalid value for 'referenceId', the character length must be smaller than or equal to 50.";
+        }
+
+        if (!is_null($this->container['contentsPieceURL']) && (mb_strlen($this->container['contentsPieceURL']) > 250)) {
+            $invalidProperties[] = "invalid value for 'contentsPieceURL', the character length must be smaller than or equal to 250.";
         }
 
         if ($this->container['quantity'] === null) {
@@ -412,6 +432,62 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
         }
 
         $this->container['sKU'] = $sKU;
+
+        return $this;
+    }
+
+    /**
+     * Gets referenceId
+     *
+     * @return string
+     */
+    public function getReferenceId()
+    {
+        return $this->container['referenceId'];
+    }
+
+    /**
+     * Sets referenceId
+     *
+     * @param string $referenceId The manufacturer's product reference code for the item (e.g. GTIN, EAN, UPC)
+     *
+     * @return $this
+     */
+    public function setReferenceId($referenceId)
+    {
+        if (!is_null($referenceId) && (mb_strlen($referenceId) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $referenceId when calling ProductItemRequest., must be smaller than or equal to 50.');
+        }
+
+        $this->container['referenceId'] = $referenceId;
+
+        return $this;
+    }
+
+    /**
+     * Gets contentsPieceURL
+     *
+     * @return string
+     */
+    public function getContentsPieceURL()
+    {
+        return $this->container['contentsPieceURL'];
+    }
+
+    /**
+     * Sets contentsPieceURL
+     *
+     * @param string $contentsPieceURL A URL linking directly to the specific product page for the item being shipped
+     *
+     * @return $this
+     */
+    public function setContentsPieceURL($contentsPieceURL)
+    {
+        if (!is_null($contentsPieceURL) && (mb_strlen($contentsPieceURL) > 250)) {
+            throw new \InvalidArgumentException('invalid length for $contentsPieceURL when calling ProductItemRequest., must be smaller than or equal to 250.');
+        }
+
+        $this->container['contentsPieceURL'] = $contentsPieceURL;
 
         return $this;
     }

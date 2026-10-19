@@ -1,0 +1,83 @@
+# Watches Royal Mail's Click & Drop API spec for changes. Royal Mail publishes no changelog or
+# version, so each day this downloads the spec and compares it with the snapshot in spec/.
+#
+# On a change it opens an issue (labelled spec-change) with the diff and fails the run, which
+# emails whoever last edited this workflow. While that issue is open, later runs stay quiet.
+#
+# Nothing is committed automatically. To acknowledge a change: review it, update the SDK if
+# needed, refresh the snapshot (see the issue), commit, and close the issue.
+#
+# GitHub disables scheduled workflows in public repos after 60 days without a commit - re-enable
+# it from the Actions tab when GitHub emails about it.
+
+name: C&D spec watch
+
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download current spec
+        run: |
+          mkdir -p /tmp/spec
+          curl -sfS --retry 3 https://api.parcel.royalmail.com/swagger/v1/swagger.json | jq -S . > /tmp/spec/swagger.json
+          curl -sfS --retry 3 -o /tmp/spec/click-and-drop-api-v1.yaml https://api.parcel.royalmail.com/doc/v1/click-and-drop-api-v1.yaml
+
+      - name: Compare with snapshot
+        id: diff
+        run: |
+          : > /tmp/spec.diff
+          for f in swagger.json click-and-drop-api-v1.yaml; do
+            diff -u "spec/$f" "/tmp/spec/$f" --label "snapshot/$f" --label "live/$f" >> /tmp/spec.diff || true
+          done
+          if [ -s /tmp/spec.diff ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            cat /tmp/spec.diff
+          else
+            echo "No changes"
+          fi
+
+      - name: Open issue
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create spec-change --color D93F0B --description "Royal Mail C&D spec changed" --force
+
+          if [ -n "$(gh issue list --label spec-change --state open --json number --jq '.[].number')" ]; then
+            echo "A spec-change issue is already open - not opening another"
+            exit 0
+          fi
+
+          {
+            echo "Royal Mail's Click & Drop API spec differs from the snapshot in \`spec/\`."
+            echo
+            echo "Review the diff and update the SDK models if needed. Then refresh the snapshot:"
+            echo
+            echo '```sh'
+            echo 'curl -sf https://api.parcel.royalmail.com/swagger/v1/swagger.json | jq -S . > spec/swagger.json'
+            echo 'curl -sf -o spec/click-and-drop-api-v1.yaml https://api.parcel.royalmail.com/doc/v1/click-and-drop-api-v1.yaml'
+            echo '```'
+            echo
+            echo "Commit it and close this issue."
+            echo
+            echo '```diff'
+            head -c 60000 /tmp/spec.diff
+            echo
+            echo '```'
+          } > /tmp/body.md
+
+          gh issue create --title "C&D API spec changed ($(date -u +%Y-%m-%d))" --label spec-change --body-file /tmp/body.md
+
+          echo "::error::Royal Mail C&D spec changed - see the new spec-change issue"
+          exit 1

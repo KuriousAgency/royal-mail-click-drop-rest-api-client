@@ -61,6 +61,9 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
         'sKU' => 'string',
         'referenceId' => 'string',
         'contentsPieceURL' => 'string',
+        'nonStandardisedManufacturerId' => 'string',
+        'standardisedManufacturerId' => 'string',
+        'pgaReferenceNumber' => 'string',
         'quantity' => 'int',
         'unitValue' => 'float',
         'unitWeightInGrams' => 'float',
@@ -82,6 +85,9 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
         'sKU' => null,
         'referenceId' => null,
         'contentsPieceURL' => null,
+        'nonStandardisedManufacturerId' => null,
+        'standardisedManufacturerId' => null,
+        'pgaReferenceNumber' => null,
         'quantity' => 'int32',
         'unitValue' => null,
         'unitWeightInGrams' => null,
@@ -124,6 +130,9 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
         'sKU' => 'SKU',
         'referenceId' => 'ReferenceId',
         'contentsPieceURL' => 'ContentsPieceURL',
+        'nonStandardisedManufacturerId' => 'NonStandardisedManufacturerId',
+        'standardisedManufacturerId' => 'StandardisedManufacturerId',
+        'pgaReferenceNumber' => 'PgaReferenceNumber',
         'quantity' => 'quantity',
         'unitValue' => 'unitValue',
         'unitWeightInGrams' => 'unitWeightInGrams',
@@ -145,6 +154,9 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
         'sKU' => 'setSKU',
         'referenceId' => 'setReferenceId',
         'contentsPieceURL' => 'setContentsPieceURL',
+        'nonStandardisedManufacturerId' => 'setNonStandardisedManufacturerId',
+        'standardisedManufacturerId' => 'setStandardisedManufacturerId',
+        'pgaReferenceNumber' => 'setPgaReferenceNumber',
         'quantity' => 'setQuantity',
         'unitValue' => 'setUnitValue',
         'unitWeightInGrams' => 'setUnitWeightInGrams',
@@ -166,6 +178,9 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
         'sKU' => 'getSKU',
         'referenceId' => 'getReferenceId',
         'contentsPieceURL' => 'getContentsPieceURL',
+        'nonStandardisedManufacturerId' => 'getNonStandardisedManufacturerId',
+        'standardisedManufacturerId' => 'getStandardisedManufacturerId',
+        'pgaReferenceNumber' => 'getPgaReferenceNumber',
         'quantity' => 'getQuantity',
         'unitValue' => 'getUnitValue',
         'unitWeightInGrams' => 'getUnitWeightInGrams',
@@ -272,6 +287,9 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
         $this->container['sKU'] = isset($data['sKU']) ? $data['sKU'] : null;
         $this->container['referenceId'] = isset($data['referenceId']) ? $data['referenceId'] : null;
         $this->container['contentsPieceURL'] = isset($data['contentsPieceURL']) ? $data['contentsPieceURL'] : null;
+        $this->container['nonStandardisedManufacturerId'] = isset($data['nonStandardisedManufacturerId']) ? $data['nonStandardisedManufacturerId'] : null;
+        $this->container['standardisedManufacturerId'] = isset($data['standardisedManufacturerId']) ? $data['standardisedManufacturerId'] : null;
+        $this->container['pgaReferenceNumber'] = isset($data['pgaReferenceNumber']) ? $data['pgaReferenceNumber'] : null;
         $this->container['quantity'] = isset($data['quantity']) ? $data['quantity'] : null;
         $this->container['unitValue'] = isset($data['unitValue']) ? $data['unitValue'] : null;
         $this->container['unitWeightInGrams'] = isset($data['unitWeightInGrams']) ? $data['unitWeightInGrams'] : null;
@@ -306,6 +324,22 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['contentsPieceURL']) && (mb_strlen($this->container['contentsPieceURL']) > 250)) {
             $invalidProperties[] = "invalid value for 'contentsPieceURL', the character length must be smaller than or equal to 250.";
+        }
+
+        if (!is_null($this->container['nonStandardisedManufacturerId']) && (mb_strlen($this->container['nonStandardisedManufacturerId']) > 50)) {
+            $invalidProperties[] = "invalid value for 'nonStandardisedManufacturerId', the character length must be smaller than or equal to 50.";
+        }
+
+        if (!is_null($this->container['standardisedManufacturerId']) && (mb_strlen($this->container['standardisedManufacturerId']) > 50)) {
+            $invalidProperties[] = "invalid value for 'standardisedManufacturerId', the character length must be smaller than or equal to 50.";
+        }
+
+        if (!is_null($this->container['pgaReferenceNumber']) && (mb_strlen($this->container['pgaReferenceNumber']) > 50)) {
+            $invalidProperties[] = "invalid value for 'pgaReferenceNumber', the character length must be smaller than or equal to 50.";
+        }
+
+        if (!is_null($this->container['pgaReferenceNumber']) && !preg_match('/^[A-Z0-9 .\/-]*$/', $this->container['pgaReferenceNumber'])) {
+            $invalidProperties[] = "invalid value for 'pgaReferenceNumber', must conform to the pattern /^[A-Z0-9 .\/-]*$/.";
         }
 
         if ($this->container['quantity'] === null) {
@@ -449,7 +483,7 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
     /**
      * Sets referenceId
      *
-     * @param string $referenceId The manufacturer's product reference code for the item (e.g. GTIN, EAN, UPC)
+     * @param string $referenceId The non-standardised manufacturer's product reference code for the item. Deprecated by Royal Mail - use NonStandardisedManufacturerId
      *
      * @return $this
      */
@@ -488,6 +522,94 @@ class ProductItemRequest implements ModelInterface, ArrayAccess
         }
 
         $this->container['contentsPieceURL'] = $contentsPieceURL;
+
+        return $this;
+    }
+
+    /**
+     * Gets nonStandardisedManufacturerId
+     *
+     * @return string
+     */
+    public function getNonStandardisedManufacturerId()
+    {
+        return $this->container['nonStandardisedManufacturerId'];
+    }
+
+    /**
+     * Sets nonStandardisedManufacturerId
+     *
+     * @param string $nonStandardisedManufacturerId The non-standardised manufacturer's product reference code for the item. Required for EU shipments on items declared as eCommerceSaleOfGoods or commercialSaleOfGoods
+     *
+     * @return $this
+     */
+    public function setNonStandardisedManufacturerId($nonStandardisedManufacturerId)
+    {
+        if (!is_null($nonStandardisedManufacturerId) && (mb_strlen($nonStandardisedManufacturerId) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $nonStandardisedManufacturerId when calling ProductItemRequest., must be smaller than or equal to 50.');
+        }
+
+        $this->container['nonStandardisedManufacturerId'] = $nonStandardisedManufacturerId;
+
+        return $this;
+    }
+
+    /**
+     * Gets standardisedManufacturerId
+     *
+     * @return string
+     */
+    public function getStandardisedManufacturerId()
+    {
+        return $this->container['standardisedManufacturerId'];
+    }
+
+    /**
+     * Sets standardisedManufacturerId
+     *
+     * @param string $standardisedManufacturerId The standardised manufacturer's product reference code for the item (e.g. GTIN, EAN, UPC). Also used as the NonStandardisedManufacturerId when that isn't provided
+     *
+     * @return $this
+     */
+    public function setStandardisedManufacturerId($standardisedManufacturerId)
+    {
+        if (!is_null($standardisedManufacturerId) && (mb_strlen($standardisedManufacturerId) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $standardisedManufacturerId when calling ProductItemRequest., must be smaller than or equal to 50.');
+        }
+
+        $this->container['standardisedManufacturerId'] = $standardisedManufacturerId;
+
+        return $this;
+    }
+
+    /**
+     * Gets pgaReferenceNumber
+     *
+     * @return string
+     */
+    public function getPgaReferenceNumber()
+    {
+        return $this->container['pgaReferenceNumber'];
+    }
+
+    /**
+     * Sets pgaReferenceNumber
+     *
+     * @param string $pgaReferenceNumber The PGA (Partner Government Agency) reference number for the item. USA shipments only
+     *
+     * @return $this
+     */
+    public function setPgaReferenceNumber($pgaReferenceNumber)
+    {
+        if (!is_null($pgaReferenceNumber) && (mb_strlen($pgaReferenceNumber) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $pgaReferenceNumber when calling ProductItemRequest., must be smaller than or equal to 50.');
+        }
+
+        if (!is_null($pgaReferenceNumber) && !preg_match('/^[A-Z0-9 .\/-]*$/', $pgaReferenceNumber)) {
+            throw new \InvalidArgumentException('invalid value for $pgaReferenceNumber when calling ProductItemRequest., must conform to the pattern /^[A-Z0-9 .\/-]*$/.');
+        }
+
+        $this->container['pgaReferenceNumber'] = $pgaReferenceNumber;
 
         return $this;
     }

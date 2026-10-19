@@ -5,6 +5,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **string** |  | [optional] 
 **sKU** | **string** |  | [optional] 
+**referenceId** | **string** | Deprecated - use nonStandardisedManufacturerId | [optional] 
+**contentsPieceURL** | **string** | Product page URL for the item | [optional] 
+**nonStandardisedManufacturerId** | **string** | Manufacturer's own product code; required for EU eCommerce/commercial sales | [optional] 
+**standardisedManufacturerId** | **string** | GTIN, EAN or UPC | [optional] 
+**pgaReferenceNumber** | **string** | Partner Government Agency reference (USA only) | [optional] 
 **quantity** | **int** |  | 
 **unitValue** | **float** |  | 
 **unitWeightInGrams** | **float** |  | 

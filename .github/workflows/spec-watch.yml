@@ -1,8 +1,9 @@
 # Watches Royal Mail's Click & Drop API spec for changes. Royal Mail publishes no changelog or
 # version, so each day this downloads the spec and compares it with the snapshot in spec/.
 #
-# On a change it opens an issue (labelled spec-change) with the diff and fails the run, which
-# emails whoever last edited this workflow. While that issue is open, later runs stay quiet.
+# On a change it opens an issue (labelled spec-change) with the diff - watch the repo's Issues
+# to be emailed. While that issue is open, later runs don't open another. The run itself only
+# fails if something breaks (e.g. the download), which emails whoever last edited this workflow.
 #
 # Nothing is committed automatically. To acknowledge a change: review it, update the SDK if
 # needed, refresh the snapshot (see the issue), commit, and close the issue.
@@ -79,5 +80,4 @@ jobs:
 
           gh issue create --title "C&D API spec changed ($(date -u +%Y-%m-%d))" --label spec-change --body-file /tmp/body.md
 
-          echo "::error::Royal Mail C&D spec changed - see the new spec-change issue"
-          exit 1
+          echo "::notice::Royal Mail C&D spec changed - see the new spec-change issue"
